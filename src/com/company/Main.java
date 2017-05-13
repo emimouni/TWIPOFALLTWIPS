@@ -1,95 +1,122 @@
 package com.company;
+
 import java.util.*;
 import java.io.*;
+
 public class Main {
 
-    public static void main(String[] args) throws IOException{
-	    double FRQ1 = 0;
-        double FRQ2 = 0;
-        Scanner kb = new Scanner(new File("Data.txt"));
+    public static void main(String[] args) throws IOException {
+        Scanner kb1 = new Scanner(new File("Data.txt"));
         ArrayList<Student> myStud = new ArrayList<Student>();
-        ArrayList<String> tester = new ArrayList<String>();
-        int x =1;
-        while(kb.hasNextLine()) {
-            String s = kb.nextLine();
-            String f = s.substring(0, 1);
-            if (f.equals("1") || f.equals("2") || f.equals("3") || f.equals("4") || f.equals("5") || f.equals("6") || f.equals("7") || f.equals("8") || f.equals("9")) {
-                String s2 = s;
-                s = s.substring(2);
-                System.out.println(x);
-                if (x%2==0){
-                    for (int i = 0; i < s.length(); i++) {
-                        tester.add(s.substring(i, i + 1));
-                    }
-                    String st = "";
-                    for (int j = 0; j < tester.size(); j++) {
-                        String s1 = tester.get(j);
-                        if (!(tester.get(j).equals("+") || tester.get(j).equals("0") || tester.get(j).equals("1") || tester.get(j).equals("2") || tester.get(j).equals("3") || tester.get(j).equals("4") || tester.get(j).equals("5") || tester.get(j).equals("6") || tester.get(j).equals("7") || tester.get(j).equals("8") || tester.get(j).equals("9") || tester.get(j).equals("."))) {
-                            s1 = " ";
-                            tester.set(j, s1);
+        kb1.nextLine();
+        Scanner kb2 = new Scanner(new File("Data.txt"));
+        kb2.nextLine();
+        int c = 1;
+        while (kb2.hasNextLine()) {
+            double FRQ1 = 0;
+            double FRQ2 = 0;
+            if (c % 2 == 0) {
+                String record = kb2.nextLine();
+                Scanner field = new Scanner(record);
+                field.useDelimiter("\t");
+                field.next();
+                double syntax = 0;
+                while (field.hasNext()) {
+                    try {
+                        boolean b = true;
+                        String field1 = field.next();
+                        if (!field1.isEmpty()) {
+                            String s3 = field1.substring(0, 1);
+                            if (s3.equals("0") || s3.equals("1") || s3.equals("2") || s3.equals("3") || s3.equals("4") || s3.equals("5") || s3.equals("6") || s3.equals("7") || s3.equals("8") || s3.equals("9")) {
+                                double m = Double.parseDouble(field1);
+                                syntax += m;
+                            }
                         }
-                        st = st + s1;
-                    }
-                    String[] ary = st.split("\t|\\s+\\s+\\s");
-                    for (int i = 0; i < ary.length; i++) {
-                        String str1 = ary[i];
-                        if (str1.contains("+")) {
-                            String str = str1.substring(str1.indexOf("+") + 2);
-                            double y = Double.parseDouble(str);
-                            FRQ1 += y;
+                        for (int i = 0; i < field1.length(); i++) {
+                            String j = field1.substring(i, i + 1);
+                            if (j.equals("+")) {
+                                String xx = field1.substring(i + 2, i + 4);
+                                xx = xx.replaceAll("\\s", "");
+                                for (int h = 0; h < xx.length(); h++) {
+                                    String r = xx.substring(h, h + 1);
+                                    if (!(r.equals("0") || r.equals("1") || r.equals("2") || r.equals("3") || r.equals("4") || r.equals("5") || r.equals("6") || r.equals("7") || r.equals("8") || r.equals("9"))) {
+                                        b = false;
+                                    }
+                                }
+                                if (b) {
+                                    double newNum = Double.parseDouble(xx);
+                                    FRQ1 += newNum;
+                                }
+                            }
                         }
-                        else {
-                            double z = Double.parseDouble(str1);
-                            z = z/4;
-                            FRQ1 -= z;
-                        }
+                    } catch (IndexOutOfBoundsException e) {
                     }
+                }
+                FRQ1 = FRQ1 - (syntax / 4);
+            } else {
+                String record = kb2.nextLine();
+                Scanner field = new Scanner(record);
+                field.useDelimiter("\t");
+                String k = field.next();
+                int secNum = Integer.parseInt(k);
+                field.next();
+                double syntax = 0;
+                while (field.hasNext()) {
+                    try {
+                        boolean b = true;
+                        String field1 = field.next();
+                        if (!field1.isEmpty()) {
+                            String s3 = field1.substring(0, 1);
+                            if (s3.equals("0") || s3.equals("1") || s3.equals("2") || s3.equals("3") || s3.equals("4") || s3.equals("5") || s3.equals("6") || s3.equals("7") || s3.equals("8") || s3.equals("9")) {
+                                double m = Double.parseDouble(field1);
+                                syntax += m;
+                            }
+                        }
+                        for (int i = 0; i < field1.length(); i++) {
+                            String j = field1.substring(i, i + 1);
+                            if (j.equals("+")) {
+                                String xx = field1.substring(i + 2, i + 4);
+                                xx = xx.replaceAll("\\s", "");
+                                for (int h = 0; h < xx.length(); h++) {
+                                    String r = xx.substring(h, h + 1);
+                                    if (!(r.equals("0") || r.equals("1") || r.equals("2") || r.equals("3") || r.equals("4") || r.equals("5") || r.equals("6") || r.equals("7") || r.equals("8") || r.equals("9"))) {
+                                        b = false;
+                                    }
+                                }
+                                if (b) {
+                                    double newNum = Double.parseDouble(xx);
+                                    FRQ1 += newNum;
+                                }
+                            }
+                        }
+                    } catch (IndexOutOfBoundsException e) {
+                    }
+                }
+                FRQ2 = FRQ2 - (syntax / 4);
+                Student stu = new Student(secNum, FRQ1, FRQ2);
+                myStud.add(stu);
+            }
 
-                }else {
-
-                    for (int i = 0; i < s.length(); i++) {
-                        tester.add(s.substring(i, i + 1));
-                    }
-                    String st1 = "";
-                    for (int j = 0; j < tester.size(); j++) {
-                        String s1 = tester.get(j);
-                        if (!(tester.get(j).equals("+") || tester.get(j).equals("0") || tester.get(j).equals("1") || tester.get(j).equals("2") || tester.get(j).equals("3") || tester.get(j).equals("4") || tester.get(j).equals("5") || tester.get(j).equals("6") || tester.get(j).equals("7") || tester.get(j).equals("8") || tester.get(j).equals("9") || tester.get(j).equals("."))) {
-                            s1 = " ";
-                            tester.set(j, s1);
-                        }
-                        st1 = st1 + s1;
-                    }
-                    int b = 0;
-                    String[] ary = st1.split("\t|\\s+\\s+\\s");
-                    for (int i = 0; i < ary.length; i++) {
-                        String str1 = ary[i];
-                        if (str1.contains("+")) {
-                            String str = str1.substring(str1.indexOf("+") + 2);
-                            double y = Double.parseDouble(str);
-                            FRQ2 += y;
-                        }
-                        else {
-                            double z = Double.parseDouble(str1);
-                            z = z/4;
-                            FRQ2 -= z;
-                        }
-                    }
-
-                    String sec = s2.substring(0,2);
-                    String sec1 = "";
-                    if (!(sec1.equals("0") || sec1.equals("1") || sec1.equals("2") || sec1.equals("3") || sec1.equals("4") || sec1.equals("5") || sec1.equals("6") || sec1.equals("7") || sec1.equals("8") || sec1.equals("9"))){
-                        sec = sec.substring(0,1);
-                    }
-
-                    int secNum = Integer.parseInt(sec);
-                    Student stu = new Student(secNum);
-
-                    stu.FRQ1 = FRQ1;
-                    stu.FRQ2 = FRQ2;
-                    myStud.add(stu);
+            c++;
+        }
+        Scanner kb3 = new Scanner(new File("Names.txt"));
+        while (kb3.hasNextLine()) {
+            String name = kb3.next();
+            int num = kb3.nextInt();
+            for (int i = 0; i < myStud.size(); i++) {
+                Student dum = myStud.get(i);
+                if (dum.secretNumber == num) {
+                    dum.setName(name);
+                    myStud.set(i, dum);
                 }
             }
-            x++;
+            kb3.nextLine();
+        }
+        System.out.println("Name\tSecretNumber\tFRQ1\tFRQ2\tTotal");
+            for (int j = 0; j < myStud.size(); j++) {
+                Student dummy = myStud.get(j);
+                System.out.println(dummy.name +  "   " + dummy.secretNumber + "   " + dummy.FRQ1 + "   " + dummy.FRQ2 + "   " + dummy.getTotal());
+            }
+
         }
     }
-}
