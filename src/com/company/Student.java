@@ -8,17 +8,22 @@ public class Student {
     public double average = 0;
     public String name;
 
-    public Student(int sn){
+    public Student(int sn, double num1, double num2){
         secretNumber = sn;
+        FRQ1 = num1;
+        FRQ2 = num2;
     }
 
-    public double getAverage(){
-        average = (FRQ1 + FRQ2)/2;
+    public double getTotal(){
+        average = (FRQ1 + FRQ2);
         return average;
     }
 
     public String getName(){
         return name;
+    }
+    public void setName(String n){
+        name = n;
     }
 
 }
